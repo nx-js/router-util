@@ -1,0 +1,25 @@
+{
+  "name": "@nx-js/router-util",
+  "version": "1.0.0",
+  "description": "NX routing utilities.",
+  "main": "router.js",
+  "author": {
+    "name": "Miklos Bertalan",
+    "email": "miklos.bertalan@risingstack.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nx-js/router-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nx-js/router-util/issues"
+  },
+  "homepage": "http://nx-framework.com",
+  "license": "MIT",
+  "keywords": [
+    "nx",
+    "util",
+    "router",
+    "route"
+  ]
+}
