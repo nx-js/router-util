@@ -1,6 +1,7 @@
 'use strict'
 
 let shouldThrottle
+throttle()
 
 function toQuery (params) {
   const query = []
