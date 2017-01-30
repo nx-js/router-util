@@ -1,12 +1,6 @@
 'use strict'
 
-module.exports = {
-  toQuery,
-  toParams,
-  toPath,
-  toRoute,
-  toAbsolute
-}
+let shouldThrottle
 
 function toQuery (params) {
   const query = []
@@ -23,7 +17,7 @@ function toParams (query) {
   if (query[0] === '?') {
     query = query.slice(1)
   }
-  query = query.split('&')
+  query = decodeURI(query).split('&')
 
   const params = {}
   for (let keyValue of query) {
@@ -46,7 +40,7 @@ function toRoute (path) {
 function toAbsolute (route, level) {
   if (route[0] === '.' || route[0] === '..') {
     if (route[0] === '.') {
-      route.shift()  
+      route.shift()
     }
     let depth = 0
     while (route[0] === '..') {
@@ -77,4 +71,33 @@ function normalizeRoute (route) {
     selfOver = true
   }
   return result
+}
+
+function updateState (state, title, url, updateHistory) {
+  if (updateHistory && !shouldThrottle) {
+    history.pushState(state, title, url)
+    throttle()
+  } else {
+    history.replaceState(state, title, url)
+  }
+}
+
+function throttle () {
+  if (!shouldThrottle) {
+    shouldThrottle = true
+    requestAnimationFrame(unthrottle)
+  }
+}
+
+function unthrottle () {
+  shouldThrottle = false
+}
+
+module.exports = {
+  toQuery,
+  toParams,
+  toPath,
+  toRoute,
+  toAbsolute,
+  updateState
 }
